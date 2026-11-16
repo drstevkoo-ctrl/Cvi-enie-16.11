@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+
+    <meta charset="UTF-8">
+  <title>Moja knižnica</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+  <script src="knihy.js" defer></script>
+
+  
+</head>
+<body>
+    <main>
+        <h1>Moja knižnica</h1>
+        <form id="formularik" class="book-form">
+            <label for="nazov">Názov knihy</label>
+            <input id="nazov" name="nazov" placeholder="Názov knihy" required maxlength="150">
+
+            <label for="autor">Autor</label>
+            <input id="autor" name="autor" placeholder="Meno autora" required maxlength="120">
+
+            <label for="rok">Rok vydania</label>
+            <input id="rok" name="rok" type="number" placeholder="napr. 2024" required step="1">
+
+            <label for="cena">Cena (Eur)</label>
+            <input id="cena" name="cena" type="number" step="0.01" min="0" placeholder="Cena (Eur)" required>
+
+            <button id="pridatKnihu" type="submit">Pridať knihu</button>
+        </form>
+        <p id="sprava" role="status" aria-live="polite"></p>
+        <section>
+            <h2>Zoznam kníh</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Názov</th>
+                        <th>Autor</th>
+                        <th>Rok</th>
+                        <th>Cena (Eur)</th>
+                        <th>Akcia</th>
+                    </tr>
+                </thead>
+                <tbody id="zoznamKnihTable"></tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

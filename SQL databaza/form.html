@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulár komentára</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="formular_zadanie.css">
+  <script src="app.js" defer></script>
+  <script src="komentar.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Rýchly komentár bez registrácie</h1>
+    <form id="commentForm">
+      <label for="firstName">Meno:</label>
+      <input type="text" id="firstName" name="firstName" required>
+
+      <label for="lastName">Priezvisko:</label>
+      <input type="text" id="lastName" name="lastName" required>
+
+      <label for="drink">Obľúbený nápoj:</label>
+      <select id="drink" name="drink" required>
+        <option value="" selected disabled>Vyberte si nápoj</option>
+        <option value="Coca-Cola">Coca-Cola</option>
+        <option value="Pepsi">Pepsi</option>
+        <option value="Kofola">Kofola</option>
+      </select>
+
+      <label for="comment">Komentár:</label>
+      <textarea id="comment" name="comment" rows="5"></textarea>
+
+      <input type="checkbox" id="agree" name="agree" required>
+      <label for="agree">Súhlasím s podmienkami</label>
+      <br><br>
+
+      <button type="submit">Odoslať komentár</button>
+      <!-- Prístupné potvrdenie: je viditeľné a čítačka obrazovky ho oznámi. -->
+      <p id="formMessage" role="status" aria-live="polite" aria-atomic="true"></p>
+    </form>
+  </main>
+</body>
+</html>
