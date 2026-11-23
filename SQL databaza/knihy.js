@@ -7,14 +7,16 @@ function zobrazSpravu(text, jeChyba = false) {
     sprava.classList.toggle("chyba", jeChyba);
 }
 
-async function nacitajKnihy() {
-    try {
-        const odpoved = await fetch("/api/knihy");
-        if (!odpoved.ok) {
-            throw new Error(await odpoved.text());
-        }
+function nacitajKnihy() {
+    const hladat = document.getElementById("hladatInput").value;
+    const zoradit = document.getElementById("zoraditSelect").value;
+    const smer = document.getElementById("smerSelect").value;
 
-        const knihy = await odpoved.json();
+    const params = new URLSearchParams({ hladat, zoradit, smer });
+
+    fetch("/api/knihy?" + params.toString())
+    .then(odpoved => odpoved.json())
+    .then(knihy => {
         zoznamKnihTable.innerHTML = "";
 
         knihy.forEach(kniha => {
@@ -129,9 +131,7 @@ async function nacitajKnihy() {
             riadok.appendChild(bunkaAkcie);
             zoznamKnihTable.appendChild(riadok);
         });
-    } catch (chyba) {
-        zobrazSpravu(chyba.message, true);
-    }
+    });
 }
 
 formularik.addEventListener("submit", async udalost => {
@@ -161,4 +161,35 @@ formularik.addEventListener("submit", async udalost => {
     }
 });
 
+// Reakcia na zmenu filtra alebo zoradenia.
+document.getElementById("hladatInput").addEventListener("input", nacitajKnihy);
+document.getElementById("zoraditSelect").addEventListener("change", nacitajKnihy);
+document.getElementById("smerSelect").addEventListener("change", nacitajKnihy);
+
+document.getElementById("resetFilterBtn").addEventListener("click", () => {
+    document.getElementById("hladatInput").value = "";
+    document.getElementById("zoraditSelect").value = "id";
+    document.getElementById("smerSelect").value = "ASC";
+    nacitajKnihy();
+});
+
+// Bonus: zobrazí meno prihláseného používateľa zo sessionStorage.
+function zobrazPrihlasenehoPouzivatela() {
+    const infoEl = document.getElementById("prihlasenyPouzivatel");
+    const ulozeny = sessionStorage.getItem("prihlasenyPouzivatel");
+
+    infoEl.textContent = "";
+    if (ulozeny) {
+        const pouzivatel = JSON.parse(ulozeny);
+        infoEl.textContent = `Prihlásený používateľ: ${pouzivatel.meno}`;
+    } else {
+        infoEl.textContent = "Nie ste prihlásený. ";
+        const odkaz = document.createElement("a");
+        odkaz.href = "prihlasenie.html";
+        odkaz.textContent = "Prihlásiť sa";
+        infoEl.appendChild(odkaz);
+    }
+}
+
+zobrazPrihlasenehoPouzivatela();
 nacitajKnihy();

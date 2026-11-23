@@ -344,13 +344,49 @@ form button {
     max-width: 560px;
 }
 
+.filter-panel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 6px 12px;
+    margin: 15px 0;
+    text-align: left;
+}
+
+.filter-pole {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 170px;
+}
+
+.filter-pole label {
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+#filterPanel input,
+#filterPanel select {
+    margin: 4px 0 0;
+}
+
+.prihlaseny-info a,
+#vysledok a {
+    color: var(--accent);
+    font-weight: 600;
+}
+
 #sprava,
-#formMessage {
+#formMessage,
+#vysledok {
     min-height: 1.5em;
     color: var(--muted);
 }
 
-#sprava.chyba {
+#sprava.chyba,
+#vysledok .chyba {
     color: #ff858d;
 }
 
